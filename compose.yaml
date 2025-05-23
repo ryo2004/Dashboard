@@ -1,8 +1,19 @@
+version: '3.8'
 services:
-  app:
-    build: .
+  frontend:
+    build: ./frontend
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - ./frontend:/app
       - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
