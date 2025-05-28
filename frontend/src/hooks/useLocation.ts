@@ -17,10 +17,35 @@ export const useLocation = (): Location => {
   });
 
   useEffect(() => {
-    async function fetchByIP() {
+    let didSet = false;
+
+    function setIfNotYet(loc: Location) {
+      if (!didSet) {
+        setLocation(loc);
+        didSet = true;
+      }
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setIfNotYet({
+            lat: pos.coords.latitude,
+            lon: pos.coords.longitude,
+          });
+        },
+        async () => {
+          await fallbackToIP();
+        }
+      );
+    } else {
+      fallbackToIP();
+    }
+
+    async function fallbackToIP() {
       try {
         const res = await axios.get('/api/location');
-        setLocation({
+        setIfNotYet({
           lat: res.data.lat,
           lon: res.data.lon,
           city: res.data.city,
@@ -28,14 +53,13 @@ export const useLocation = (): Location => {
           country: res.data.country,
         });
       } catch (e) {
-        setLocation({
+        setIfNotYet({
           lat: null,
           lon: null,
           error: '位置情報の取得に失敗しました',
         });
       }
     }
-    fetchByIP();
   }, []);
 
   return location;
