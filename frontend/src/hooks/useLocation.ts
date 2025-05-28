@@ -17,32 +17,14 @@ export const useLocation = (): Location => {
   });
 
   useEffect(() => {
-    // Geolocation API（ブラウザ）
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setLocation({
-            lat: pos.coords.latitude,
-            lon: pos.coords.longitude,
-          });
-        },
-        async (err) => {
-          console.warn("Geolocation failed, fallback to IP", err.message);
-          await fallbackToIP();
-        }
-      );
-    } else {
-      fallbackToIP();
-    }
-
-    async function fallbackToIP() {
+    async function fetchByIP() {
       try {
-        const res = await axios.get('http://ip-api.com/json/');
+        const res = await axios.get('/api/location');
         setLocation({
           lat: res.data.lat,
           lon: res.data.lon,
           city: res.data.city,
-          region: res.data.regionName,
+          region: res.data.region,
           country: res.data.country,
         });
       } catch (e) {
@@ -53,6 +35,7 @@ export const useLocation = (): Location => {
         });
       }
     }
+    fetchByIP();
   }, []);
 
   return location;

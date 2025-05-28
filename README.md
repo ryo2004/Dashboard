@@ -11,7 +11,10 @@ AIを活用してニュースを自動要約し、天気に応じた服装を提
 ## 環境変数の設定
 
 このプロジェクトは以下のAPIキーを必要とします：
+frontend/.env
 - OpenWeather
+
+backend/.env
 - News API
 - Gemini
 
@@ -27,7 +30,7 @@ AIを活用してニュースを自動要約し、天気に応じた服装を提
 
 1. `.env.example` を `.env` にコピーし、APIキーを記入
 
-2. 以下のコマンドで起動：
+2. 以下のコマンドで起動：docker compose up -d
 
 ## 作者
 - Ryo
