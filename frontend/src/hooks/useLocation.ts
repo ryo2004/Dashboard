@@ -44,7 +44,7 @@ export const useLocation = (): Location => {
 
     async function fallbackToIP() {
       try {
-        const res = await axios.get('/api/location');
+        const res = await axiosInstance.get('/api/location');
         setIfNotYet({
           lat: res.data.lat,
           lon: res.data.lon,

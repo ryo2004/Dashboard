@@ -1,18 +1,52 @@
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import WeatherSection from './components/WeatherSection';
 import NewsSection from './components/NewsSection';
 import Footer from './components/Footer';
+import LoginForm from './components/LoginForm';
+import Dashboard from './components/Dashboard';
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+
+  const handleLogin = (token: string) => {
+    setToken(token);
+    localStorage.setItem('token', token);
+  };
+
+  const handleLogout = () => {
+    setToken('');
+    localStorage.removeItem('token');
+  };
+
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-100 text-gray-900">
-      <Header />
+    <BrowserRouter>
+      {token && <Header />}
       <main className="flex-grow p-4 space-y-8">
-        <WeatherSection />
-        <NewsSection />
+        <Routes>
+          <Route
+            path="/login"
+            element={<LoginForm onLogin={handleLogin} />}
+          />
+          <Route
+            path="/"
+            element={
+              token ? (
+                <>
+                  <Dashboard onLogout={handleLogout} />
+                  <WeatherSection />
+                  <NewsSection />
+                </>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+        </Routes>
       </main>
-      <Footer />
-    </div>
+      {token && <Footer />}
+    </BrowserRouter>
   );
 }
 
