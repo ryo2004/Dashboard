@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from app.db import SessionLocal
 from app.crud import get_user_by_username
 from app.auth import verify_password, create_access_token
+from app.models import User
 
 router = APIRouter()
 
