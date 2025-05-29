@@ -11,7 +11,7 @@ class UserCreate(BaseModel):
     password: str
 
 @router.post("/signup")
-def signup(user: UserCreate = Body(...)):
+def signup(user: UserCreate):
     db = SessionLocal()
     existing_user = db.query(User).filter(User.username == user.username).first()
     if existing_user:
