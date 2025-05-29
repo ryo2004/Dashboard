@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const endpoint = isLogin ? '/api/login' : '/api/signup';
@@ -25,6 +27,7 @@ const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) 
       }
       if (isLogin && data.access_token) {
         onLogin(data.access_token);
+        navigate('/');
       } else if (!isLogin) {
         setIsLogin(true);
       }
