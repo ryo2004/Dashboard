@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date, Text
+from sqlalchemy import Column, Integer, String, Float, Date, Text, Time
 from .db import Base
 
 class User(Base):
@@ -15,4 +15,14 @@ class Weather(Base):
     temp = Column(Float)
     condition = Column(String)
     suggestion = Column(Text)
-    user_id = Column(Integer)  # ユーザーごとに紐付ける場合
+    user_id = Column(Integer)
+
+class Suggestion(Base):
+    __tablename__ = "suggestions"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    date = Column(Date, nullable=False)
+    time = Column(Integer, nullable=False)  # 6 or 12
+    weather = Column(String)
+    temp = Column(Float)
+    suggestion = Column(Text)
