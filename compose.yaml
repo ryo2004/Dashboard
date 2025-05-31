@@ -36,10 +36,5 @@ services:
     env_file:
       - ./backend/.env
 
-  devcontainer:
-    image: mcr.microsoft.com/vscode/devcontainers/node:latest
-    volumes:
-      - .:/workspace:cached
-
 volumes:
   db-data:
