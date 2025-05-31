@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/dashboard
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 
   db:
     image: postgres:16
@@ -35,5 +35,11 @@ services:
       - db-data:/var/lib/postgresql/data
     env_file:
       - ./backend/.env
+
+  devcontainer:
+    image: mcr.microsoft.com/vscode/devcontainers/node:latest
+    volumes:
+      - .:/workspace:cached
+
 volumes:
   db-data:
