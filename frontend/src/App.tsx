@@ -21,7 +21,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}> //警告がでるのでv7適応
       {token && <Header />}
       <main className="flex-grow p-4 space-y-8">
         <Routes>

@@ -54,8 +54,8 @@ export const useLocation = (): Location => {
         });
       } catch (e) {
         setIfNotYet({
-          lat: 35.682839, // 東京の緯度
-          lon: 139.759455, // 東京の経度
+          lat: 35.682839, 
+          lon: 139.759455, 
           city: "Tokyo",
           region: "Tokyo",
           country: "Japan",
