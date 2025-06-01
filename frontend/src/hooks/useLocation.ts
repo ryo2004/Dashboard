@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from "../utils/axiosInstance";
 
 type Location = {
   lat: number | null;
@@ -54,9 +54,12 @@ export const useLocation = (): Location => {
         });
       } catch (e) {
         setIfNotYet({
-          lat: null,
-          lon: null,
-          error: '位置情報の取得に失敗しました',
+          lat: 35.682839, // 東京の緯度
+          lon: 139.759455, // 東京の経度
+          city: "Tokyo",
+          region: "Tokyo",
+          country: "Japan",
+          error: "位置情報の取得に失敗しました。デフォルトの東京を設定しました。",
         });
       }
     }
