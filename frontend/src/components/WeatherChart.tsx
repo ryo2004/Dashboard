@@ -21,6 +21,10 @@ const WeatherChart = ({
   data: { time: string; temp: number; weather: string }[];
   currentIndex: number;
 }) => {
+  // 最高気温を取得し、少し余裕を持たせる
+  const maxTemp = Math.max(...data.map((d) => d.temp), 0);
+  const yMax = Math.ceil(maxTemp + 2); // 2℃余裕を持たせる
+
   const chartData = useMemo(
     () => ({
       labels: data.map((d) => d.time),
@@ -48,7 +52,7 @@ const WeatherChart = ({
   const chartOptions = useMemo(
     () => ({
       responsive: true,
-      maintainAspectRatio: false, 
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -87,10 +91,14 @@ const WeatherChart = ({
             color: '#fff',
           },
         },
-        y: { min: 10, max: 25, title: { display: true, text: '気温(℃)' } },
+        y: {
+          min: 10,
+          max: yMax, // ここを動的に
+          title: { display: true, text: '気温(℃)' },
+        },
       },
     }),
-    [data, currentIndex]
+    [data, currentIndex, yMax]
   );
 
   return <Line data={chartData} options={chartOptions} />;
