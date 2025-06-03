@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, Date, Text, Time
+from sqlalchemy import Column, Integer, String, Float, Date, Text, Time, DateTime, JSON
+from sqlalchemy.orm import relationship
 from .db import Base
+from datetime import datetime
 
 class User(Base):
     __tablename__ = "users"
@@ -22,7 +24,15 @@ class Suggestion(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False)
     date = Column(Date, nullable=False)
-    time = Column(Integer, nullable=False)  # 6 or 12
+    time = Column(Integer, nullable=False) 
     weather = Column(String)
     temp = Column(Float)
     suggestion = Column(Text)
+
+class NewsCache(Base):
+    __tablename__ = "news_cache"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, index=True)
+    update_key = Column(String, index=True)
+    data = Column(JSON)
+    updated_at = Column(DateTime, default=datetime.utcnow)
