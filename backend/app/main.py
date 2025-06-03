@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import weather, location, gemini, auth, signup
+from app.api import weather, location, gemini, auth, signup, news
 
 app = FastAPI()
 
@@ -17,3 +17,4 @@ app.include_router(location.router, prefix="/api")
 app.include_router(gemini.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
 app.include_router(signup.router, prefix="/api")
+app.include_router(news.router, prefix="/api")
