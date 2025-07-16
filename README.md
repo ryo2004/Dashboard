@@ -51,6 +51,14 @@ AIを活用してニュースを自動要約し、天気に応じた服装を提
 
 ## 環境変数の設定
 
+### Root環境変数 (`/.env`)
+```
+# Database settings
+POSTGRES_USER=dashboard_user
+POSTGRES_PASSWORD=dashboard_password
+POSTGRES_DB=dashboard
+```
+
 ### Frontend環境変数 (`frontend/.env`)
 ```
 VITE_OPENWEATHER_API_KEY=your_openweather_api_key
@@ -60,8 +68,8 @@ VITE_OPENWEATHER_API_KEY=your_openweather_api_key
 ```
 GNEWS_API_KEY=your_gnews_api_key
 GEMINI_API_KEY=your_gemini_api_key
-DATABASE_URL=postgresql://user:password@db:5432/dashboard
 SECRET_KEY=your_jwt_secret_key
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 ```
 
 > **注意**: `.env` ファイルはセキュリティのためGit管理されていません。  
@@ -77,13 +85,15 @@ cd Dashboard
 
 ### 2. 環境変数の設定
 ```bash
+# Root directory
+cp .env.example .env
 # Frontend
 cp frontend/.env.example frontend/.env
 # Backend
 cp backend/.env.example backend/.env
 ```
 
-各`.env`ファイルに必要なAPIキーを記入してください。
+各`.env`ファイルに必要なAPIキーとデータベース設定を記入してください。
 
 ### 3. アプリケーションの起動
 ```bash
