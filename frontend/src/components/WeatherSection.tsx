@@ -7,11 +7,11 @@ const WeatherSection: React.FC = () => {
 
   if (!weather.hourlyData || weather.hourlyData.length === 0) {
     return (
-      <section className="bg-white rounded-xl p-4 shadow">
-        <h2 className="text-xl font-semibold mb-2">今日の気温推移</h2>
-        <p className="text-red-500">気温データの取得中</p>
-        <p>天気: {weather.condition || '取得中...'}</p>
-        <p className="mt-2 text-sm text-gray-700">服装の提案: {weather.suggestion}</p>
+      <section className="card">
+        <h2 className="weather-title">今日の気温推移</h2>
+        <p className="weather-loading">気温データの取得中</p>
+        <p className="weather-condition">天気: {weather.condition || '取得中...'}</p>
+        <p className="weather-suggestion">服装の提案: {weather.suggestion}</p>
       </section>
     );
   }
@@ -29,12 +29,12 @@ const WeatherSection: React.FC = () => {
   }, 0);
 
   return (
-    <section className="bg-white rounded-xl p-4 shadow">
-      <h2 className="text-xl font-semibold mb-2">今日の気温推移</h2>
-      <div style={{ height: 300, width: 600, margin: '0 auto' }}>
+    <section className="card">
+      <h2 className="weather-title">今日の気温推移</h2>
+      <div className="weather-chart-container">
         <WeatherChart data={chartData} currentIndex={nearestIndex} />
       </div>
-      <p className="mt-2 text-sm text-gray-700">服装の提案: {weather.suggestion}</p>
+      <p className="weather-suggestion">服装の提案: {weather.suggestion}</p>
     </section>
   );
 };

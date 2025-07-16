@@ -20,7 +20,10 @@ def login(user: UserLogin):
             raise HTTPException(status_code=401, detail="ユーザー名またはパスワードが違います")
         if not verify_password(user.password, db_user.hashed_password):
             raise HTTPException(status_code=401, detail="ユーザー名またはパスワードが違います")
-        token = create_access_token({"sub": user.username})
-        return {"access_token": token, "token_type": "bearer"}
+        token = create_access_token({
+            "sub": str(db_user.id),
+            "username": db_user.username
+        })
+        return {"token": token, "token_type": "bearer"}
     finally:
         db.close()

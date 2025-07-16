@@ -41,7 +41,7 @@ const WeatherChart = ({
           pointRadius: data.map((_, i) => (i === currentIndex ? 10 : 4)),
           pointBorderWidth: data.map((_, i) => (i === currentIndex ? 4 : 1)),
           pointBorderColor: data.map((_, i) =>
-            i === currentIndex ? '#222' : 'rgba(255,99,132,1)'
+            i === currentIndex ? '#ffffff' : 'rgba(255,99,132,1)'
           ),
         },
       ],
@@ -87,7 +87,7 @@ const WeatherChart = ({
               const d = data[index];
               return d ? [d.weather, d.time] : this.getLabelForValue(value);
             },
-            font: { size: 14 },
+            font: { size: 18 },
             color: '#fff',
           },
         },

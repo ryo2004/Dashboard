@@ -34,10 +34,10 @@ const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xs mx-auto p-4 bg-white rounded shadow">
-      <h2 className="text-lg font-bold mb-2">{isLogin ? 'ログイン' : '新規登録'}</h2>
+    <form onSubmit={handleSubmit} className="form">
+      <h2 className="form-title">{isLogin ? 'ログイン' : '新規登録'}</h2>
       <input
-        className="border p-2 w-full mb-2"
+        className="form-input"
         type="text"
         placeholder="ユーザー名"
         value={username}
@@ -45,20 +45,20 @@ const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) 
         required
       />
       <input
-        className="border p-2 w-full mb-2"
+        className="form-input"
         type="password"
         placeholder="パスワード"
         value={password}
         onChange={e => setPassword(e.target.value)}
         required
       />
-      {error && <div className="text-red-500 mb-2">{error}</div>}
-      <button className="bg-blue-600 text-white px-4 py-2 rounded w-full" type="submit">
+      {error && <div className="form-error">{error}</div>}
+      <button className="form-submit" type="submit">
         {isLogin ? 'ログイン' : '登録'}
       </button>
       <button
         type="button"
-        className="text-blue-600 mt-2 underline w-full"
+        className="form-toggle"
         onClick={() => setIsLogin(!isLogin)}
       >
         {isLogin ? '新規登録はこちら' : 'ログイン画面へ'}

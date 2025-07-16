@@ -5,15 +5,15 @@ const NewsSection: React.FC = () => {
   const { news, loading, error } = useNews();
 
   return (
-    <section className="bg-white rounded-xl p-4 shadow">
-      <h2 className="text-xl font-semibold mb-2">今日のニュース</h2>
-      {loading && <p>ニュースを取得中...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      <ul className="space-y-4">
+    <section className="card">
+      <h2 className="news-title">今日のニュース</h2>
+      {loading && <p className="news-loading">ニュースを取得中...</p>}
+      {error && <p className="news-error">{error}</p>}
+      <ul className="news-list">
         {news.map((item, idx) => (
-          <li key={idx}>
-            <h3 className="font-bold">{item.title}</h3>
-            <p className="text-sm text-gray-700">{item.summary}</p>
+          <li key={idx} className="news-item">
+            <h3 className="news-item-title">{item.title}</h3>
+            <p className="news-item-summary">{item.summary}</p>
           </li>
         ))}
       </ul>

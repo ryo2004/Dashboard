@@ -9,9 +9,9 @@ const Header: React.FC = () => {
   const weather = useWeather();
 
   return (
-    <header className="bg-blue-600 text-white p-4 shadow-md">
-      <h1 className="text-2xl font-bold">天気・ニュースダッシュボード</h1>
-      <p className="text-sm">
+    <header className="header">
+      <h1 className="header-title">天気・ニュースダッシュボード</h1>
+      <p className="header-date">
         {today}
         {weather.city ? `（${weather.city}）` : ''}
       </p>
