@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
 
 const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -8,31 +10,26 @@ const LoginForm: React.FC<{ onLogin: (token: string) => void }> = ({ onLogin }) 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const apiUrl = import.meta.env.VITE_API_URL;
   const endpoint = isLogin ? '/api/login' : '/api/signup';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.detail || 'エラーが発生しました');
-        return;
-      }
+      const res = await axiosInstance.post(endpoint, { username, password });
+      const data = res.data;
       if (isLogin && data.access_token) {
         onLogin(data.access_token);
         navigate('/');
       } else if (!isLogin) {
         setIsLogin(true);
       }
-    } catch {
-      setError('通信エラー');
+    } catch (err: any) {
+      if (err.response && err.response.data && err.response.data.detail) {
+        setError(err.response.data.detail);
+      } else {
+        setError('通信エラー');
+      }
     }
   };
 

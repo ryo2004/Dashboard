@@ -34,9 +34,10 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
+    from app.db import SessionLocal
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="認証情報が正しくありません",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
@@ -44,6 +45,11 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        return username
+        db = SessionLocal()
+        user = db.query(__import__('app.models').models.User).filter_by(username=username).first()
+        db.close()
+        if user is None:
+            raise credentials_exception
+        return user
     except JWTError:
         raise credentials_exception
