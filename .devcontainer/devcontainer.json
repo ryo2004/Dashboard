@@ -1,5 +1,0 @@
-{
-  "name": "devcontainer",
-  "image": "mcr.microsoft.com/vscode/devcontainers/node:latest",
-  "workspaceFolder": "/workspaces/Dashboard"
-}
