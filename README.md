@@ -69,7 +69,6 @@ VITE_OPENWEATHER_API_KEY=your_openweather_api_key
 GNEWS_API_KEY=your_gnews_api_key
 GEMINI_API_KEY=your_gemini_api_key
 SECRET_KEY=your_jwt_secret_key
-DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 ```
 
 > **注意**: `.env` ファイルはセキュリティのためGit管理されていません。  
